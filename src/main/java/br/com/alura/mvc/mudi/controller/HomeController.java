@@ -1,5 +1,6 @@
 package br.com.alura.mvc.mudi.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.alura.mvc.mudi.model.Pedido;
 import br.com.alura.mvc.mudi.model.StatusPedido;
+import br.com.alura.mvc.mudi.model.User;
 import br.com.alura.mvc.mudi.repository.PedidoRepository;
 
 @Controller
@@ -28,9 +30,14 @@ public class HomeController {
 	private EntityManager entityManager;
 
 	@GetMapping
-	public String home(Model model) {
+	public String home(Model model, Principal principal) {
 		
-		List<Pedido> pedidos = pedidoRepository.findAll();
+		principal.getName();
+		
+		User user = new User();
+		user.setUsername(principal.getName());
+		
+		List<Pedido> pedidos = pedidoRepository.findByUser(user);
 		
 		model.addAttribute("pedidos", pedidos);
 		
