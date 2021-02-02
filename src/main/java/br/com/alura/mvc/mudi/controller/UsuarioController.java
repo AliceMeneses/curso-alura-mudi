@@ -29,7 +29,7 @@ public class UsuarioController {
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	@GetMapping
+	@GetMapping("pedido")
 	public String home(Model model, Principal principal) {
 		
 		principal.getName();
@@ -41,10 +41,10 @@ public class UsuarioController {
 		
 		model.addAttribute("pedidos", pedidos);
 		
-		return "home";
+		return "usuario/pedido";
 	}
 	
-	@GetMapping("/{status}")
+	@GetMapping("pedido/{status}")
 	public String porStatus(@PathVariable(name = "status") String status, Model model, Principal principal) {
 		
 		List<Pedido> pedidos = pedidoRepository.findByStatusAndUser(StatusPedido.valueOf(status.toUpperCase()), principal.getName());
@@ -52,11 +52,11 @@ public class UsuarioController {
 		model.addAttribute("pedidos", pedidos);
 		model.addAttribute("status", status);
 		
-		return "home";
+		return "usuario/pedido";
 	}
 	
 	@ExceptionHandler(IllegalArgumentException.class)
 	public String onError() {
-		return "redirect:/home";
+		return "redirect:usuario/pedido";
 	}
 }
