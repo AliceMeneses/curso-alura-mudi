@@ -23,9 +23,6 @@ public class HomeController {
 	
 	@Autowired
 	private PedidoRepository pedidoRepository;
-	
-	@PersistenceContext
-	private EntityManager entityManager;
 
 	@GetMapping
 	public String home(Model model) {
