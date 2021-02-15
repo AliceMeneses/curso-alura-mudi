@@ -16,9 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 public class Pedido {
 
@@ -38,6 +36,7 @@ public class Pedido {
 	private User user;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="pedido", fetch = FetchType.LAZY)
+	@JsonIgnore
 	private List<Oferta> ofertas;
 
 	@Enumerated(EnumType.STRING)
